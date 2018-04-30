@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="manifest" href="/cache.webmanifest">
     <title>Leap Test</title>
-    <script src="./js/nipplejs.min.js"></script>
+    <script src="./js/vendor/nipplejs.min.js"></script>
     <style>
         body, html {
             height:  100%;
@@ -94,7 +94,9 @@
             }
             loop();
         })(manager);
-        
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./js/service-worker.js');
+        }
     </script>
 </body>
 </html>
