@@ -1,9 +1,9 @@
 var PRECACHE  = 'leap-test-cache-v1';
 var RUNTIME = 'runtime';
 var PRECACHE_URLS = [
-  '/',
-  '/index.html',
-  '/js/vendor/nipplejs.min.js'
+  './',
+  './index.html',
+  './js/vendor/nipplejs.min.js'
 ];
 
 // the rest below handles the installing and caching
