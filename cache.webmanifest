@@ -1,0 +1,8 @@
+{
+    "short_name": "Leap Test",
+    "name": "Leap Test Amazing Application ++",
+    "icons": [],
+    "start_url": "/index.html",
+    "display": "standalone",
+    "orientation": "landscape"
+  }

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="manifest" href="/cache.webmanifest">
+    <title>Leap Test</title>
+    <script src="nipplejs.min.js"></script>
+    <style>
+        body, html {
+            height:  100%;
+            margin:  0px auto;
+            padding: 0px auto;
+        }
+
+        .hero {
+            width : 20px;
+            height: 20px;
+            background-color: green;
+            font-size: 16px;
+            position: absolute;
+        }
+        .game {
+            background-color: green;
+            height:     100%;       /* These two lines were the key. */
+            /*overflow:   hidden;*/ /* Do not use this, it crops in small browsers. */
+            margin:     0px auto;
+            padding:    0px auto;
+        }
+        .command {
+            display: flex;
+            position: absolute;
+            bottom: 0px;
+            height: 50%;
+            width: 100%;
+        }
+        .left-command {
+            opacity: 0.3;
+            background-color: lightgreen;
+            width: 50%;
+            height: 100%;
+            left: 0px;
+        }
+        .right-command {
+            opacity: 0.3;
+            background-color: pink;
+            width: 50%;
+            height: 100%;
+            right: 0px;
+        }
+    </style>
+</head>
+<body>
+    <div class="game" id="game">
+        <div class="hero" id="hero">@</div>
+        <div class="command">
+            <div class="left-command"  id="joypad"></div>
+            <div class="right-command" id="actions"></div>
+        </div>
+        
+    </div>
+    
+    <script>
+        var $zone = document.getElementById('game');
+        var options = {
+            zone: document.getElementById('joypad')
+        };
+        
+        var manager = nipplejs.create(options);
+
+        (function(joy) {
+            var state = {
+                x : 0, y : 0
+            };
+            var $hero = document.getElementById('hero');
+            var $action = document.getElementById('actions');
+            $action.addEventListener('click', function () {
+                console.log($zone);
+                state.y = $zone.clientHeight / 2;
+                state.x = $zone.clientWidth / 2;
+            })
+            joy.on('move', function (evt, a) {
+                let y = Math.cos(a.angle.radian) * a.force,
+                    x = Math.sin(a.angle.radian) * a.force;
+                state.x -= x;
+                state.y += y;
+                            });
+            
+            var loop = function () {
+                $hero.style.top = state.x + 'px';
+                $hero.style.left = state.y + 'px';
+                window.requestAnimationFrame(loop);
+            }
+            loop();
+        })(manager);
+        
+    </script>
+</body>
+</html>
